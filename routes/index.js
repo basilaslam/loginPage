@@ -9,7 +9,7 @@ const email1= 'basil@gmail.com';
 
 
 // Functions
-function checkUser(email,password){
+function validateUser(email,password){
   console.log('checkuser');
   if(email == email1){
     if(password == password1){
@@ -20,22 +20,55 @@ function checkUser(email,password){
   return false;
 }
 
+// function checkUser(){
+//   if(req.session.user){
+//     next();
+//   }else{
+//     res.redirect('/login');
+//   }
+// }
+
 /* GET home page. */
+router.get('/',(req,res)=>{
+  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  if(req.session.user){
+    res.render('index',{username: req.session.username})
+  }else{
+    res.redirect('/login');
+  }
+})
+
+
+// login router
 router.get('/login', function(req, res, next) {
-  let arr = [{name:'a'},{name:'b'},{name:'c'}];
-  res.render('login', { title: arr });
+  if(req.session.user){
+    res.redirect('/');
+  }
+  res.render('login');
+});
+
+// logout router
+
+router.get('/logout', function(req, res) {
+  req.session.destroy();
+  res.header('Cache-Control', 'no-cache');
+  res.redirect('/login');
 });
 
 // Get login Details
 
-router.post('/login',(req, res)=>{
+router.post('/login',(req, res,next)=>{
   console.log('post');
-  if(checkUser(req.body.email,req.body.password)){
-    console.log('logged');
+  if(validateUser(req.body.email,req.body.password)){
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    req.session.user = true;
+    req.session.username = req.body.email.split('@')[0]
+    console.log(req.body.email.split('@')[0]);
+    res.redirect('/');
   }else{
     console.log('not logged');
   }
-  console.log(req.body.password,req.body.email);
+  // console.log(req.body.password,req.body.email);
 })
 
 

@@ -1,8 +1,8 @@
 Arguments: 
-  /home/basilaslam/.nvm/versions/node/v18.9.0/bin/node /home/basilaslam/.nvm/versions/node/v18.9.0/bin/yarn add express-session
+  /home/basilaslam/.nvm/versions/node/v18.9.0/bin/node /home/basilaslam/.nvm/versions/node/v18.9.0/bin/yarn add express-session~
 
 PATH: 
-  /home/basilaslam/bin:/home/basilaslam/.nvm/versions/node/v18.9.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/basilaslam/npm:/home/basilaslam/npm
+  /home/basilaslam/bin:/home/basilaslam/.nvm/versions/node/v18.9.0/bin:/home/basilaslam/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/basilaslam/npm:/home/basilaslam/npm
 
 Yarn version: 
   1.22.19
@@ -14,8 +14,17 @@ Platform:
   linux x64
 
 Trace: 
-  Error: getaddrinfo EAI_AGAIN registry.yarnpkg.com
-      at GetAddrInfoReqWrap.onlookup [as oncomplete] (node:dns:111:26)
+  Error: https://registry.yarnpkg.com/express-session~: Not found
+      at params.callback [as _callback] (/home/basilaslam/.nvm/versions/node/v18.9.0/lib/node_modules/yarn/lib/cli.js:66145:18)
+      at self.callback (/home/basilaslam/.nvm/versions/node/v18.9.0/lib/node_modules/yarn/lib/cli.js:140890:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (/home/basilaslam/.nvm/versions/node/v18.9.0/lib/node_modules/yarn/lib/cli.js:141862:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (/home/basilaslam/.nvm/versions/node/v18.9.0/lib/node_modules/yarn/lib/cli.js:141784:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1359:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:82:21)
 
 npm manifest: 
   {
