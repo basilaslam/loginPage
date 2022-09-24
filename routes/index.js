@@ -8,16 +8,15 @@ const email1= 'basil@gmail.com';
 
 
 
-// Functions
-function validateUser(email,password){
-  console.log('checkuser');
-  if(email == email1){
-    if(password == password1){
-      return true;
-    }
-  }
 
-  return false;
+
+function validateUser(req,res,next){
+  if(req.body.email==email1 && req.body.password==password1){
+    next()
+  }else{
+    req.session.message=true;
+    res.redirect('/')
+  }
 }
 
 // function checkUser(){
@@ -34,17 +33,18 @@ router.get('/',(req,res)=>{
   if(req.session.user){
     res.render('index',{username: req.session.username})
   }else{
-    res.redirect('/login');
+    res.render('login',{"message":req.session.message});
+    req.session.message=false;
+   
   }
 })
 
 
 // login router
 router.get('/login', function(req, res, next) {
-  if(req.session.user){
+ 
     res.redirect('/');
-  }
-  res.render('login');
+ 
 });
 
 // logout router
@@ -57,17 +57,15 @@ router.get('/logout', function(req, res) {
 
 // Get login Details
 
-router.post('/login',(req, res,next)=>{
+router.post('/login',validateUser,(req, res,next)=>{
   console.log('post');
-  if(validateUser(req.body.email,req.body.password)){
+  
     res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     req.session.user = true;
     req.session.username = req.body.email.split('@')[0]
     console.log(req.body.email.split('@')[0]);
     res.redirect('/');
-  }else{
-    console.log('not logged');
-  }
+
   // console.log(req.body.password,req.body.email);
 })
 
