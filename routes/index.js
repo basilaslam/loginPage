@@ -1,6 +1,6 @@
-var express = require('express');
+const express = require('express');
 const app = require('../app');
-var router = express.Router();
+const router = express.Router();
 
 const password1 = 'basil'
 const email1= 'basil@gmail.com';
@@ -29,7 +29,6 @@ function validateUser(req,res,next){
 
 /* GET home page. */
 router.get('/',(req,res)=>{
-  res.header('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
   if(req.session.user){
     res.render('index',{username: req.session.username})
   }else{
@@ -59,11 +58,8 @@ router.get('/logout', function(req, res) {
 
 router.post('/login',validateUser,(req, res,next)=>{
   console.log('post');
-  
-    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     req.session.user = true;
     req.session.username = req.body.email.split('@')[0]
-    console.log(req.body.email.split('@')[0]);
     res.redirect('/');
 
   // console.log(req.body.password,req.body.email);
